@@ -37,10 +37,13 @@
 
       var buildUrl = "Build";
       var config = {
-        dataUrl: buildUrl + "/ae0b74a03163c5ff0adb9affa8d406ff.data.unityweb",
-        frameworkUrl: buildUrl + "/27a11c3c12ec4de81539e2866f25d32b.framework.js.unityweb",
-        codeUrl: buildUrl + "/850c2180cac663a2db1f7d303a35347b.wasm.unityweb",
+        dataUrl: buildUrl + "/e8be43cf6916fae54e39037bf1724650.data.unityweb",
+        frameworkUrl: buildUrl + "/68643b5b29eeffcefa899548ecf4c8de.framework.js.unityweb",
+        codeUrl: buildUrl + "/b9494aedd51751c177e0b0b97fd4498c.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
+        // File names are content hashes (a new build = new names), so cached copies never need re-checking:
+        // repeat visits start straight from the browser's IndexedDB cache without touching the network.
+        cacheControl: function (url) { return /\.unityweb$/.test(url) ? "immutable" : "no-store"; },
         companyName: "DefaultCompany",
         productName: "Jumpman",
         productVersion: "0.1",
