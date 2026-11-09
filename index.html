@@ -153,10 +153,15 @@
             left: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
+            height: 100dvh !important;
             padding-bottom: 0 !important;
             z-index: 99999 !important;
             border-radius: 0 !important;
             border: none !important;
+        }
+        html.unity-page-locked, html.unity-page-locked body {
+            overflow: hidden !important;
+            overscroll-behavior: none;
         }
 
         /* 表單輸入設計 */
@@ -490,13 +495,19 @@
     const unityContainer = document.getElementById('unity-container');
     const fsOverlay = document.getElementById('fullscreen-overlay');
     const exitFsBtn = document.getElementById('exit-fs-btn');
+    // iPadOS Safari 預設回報為 Macintosh，要用觸控點數來判斷
+    const isIPad = /iPad/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 
     window.tryActivateFullScreen = function() {
         fsOverlay.style.display = 'none';
         unityContainer.classList.add('unity-fullscreen-active');
+        document.documentElement.classList.add('unity-page-locked');
         exitFsBtn.style.display = 'block';
-        if (unityContainer.requestFullscreen) unityContainer.requestFullscreen();
-        else if (unityContainer.webkitRequestFullscreen) unityContainer.webkitRequestFullscreen();
+        // iPad Safari 的原生全螢幕「往下滑」就會退出（網頁無法關閉此手勢），會跟遊戲的滑行操作衝突，所以 iPad 只用 CSS 滿版。
+        if (!isIPad) {
+            if (unityContainer.requestFullscreen) unityContainer.requestFullscreen();
+            else if (unityContainer.webkitRequestFullscreen) unityContainer.webkitRequestFullscreen();
+        }
 
         // start game bgm
         try {
@@ -511,6 +522,7 @@
 
     window.deactivateFullScreen = function() {
         unityContainer.classList.remove('unity-fullscreen-active');
+        document.documentElement.classList.remove('unity-page-locked');
         fsOverlay.style.display = 'flex';
         exitFsBtn.style.display = 'none';
         if (document.fullscreenElement) document.exitFullscreen();
