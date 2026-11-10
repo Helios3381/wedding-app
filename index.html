@@ -502,7 +502,7 @@
         fsOverlay.style.display = 'none';
         unityContainer.classList.add('unity-fullscreen-active');
         document.documentElement.classList.add('unity-page-locked');
-        exitFsBtn.style.display = 'block';
+        syncExitButton();
         // iPad Safari 的原生全螢幕「往下滑」就會退出（網頁無法關閉此手勢），會跟遊戲的滑行操作衝突，所以 iPad 只用 CSS 滿版。
         if (!isIPad) {
             if (unityContainer.requestFullscreen) unityContainer.requestFullscreen();
@@ -519,6 +519,17 @@
           console.warn("BGM error：", e);
         }
     };
+
+    // 遊戲載入完成後，「返回網頁」改由遊戲畫面內的按鈕提供（主畫面／暫停／結算），避免這顆按鈕蓋住分數。
+    // 遊戲還在讀取時，才顯示網頁自己的按鈕。
+    function unityReady() {
+        try { return !!document.getElementById('unity-iframe').contentWindow.unityInstance; } catch (e) { return false; }
+    }
+    function syncExitButton() {
+        const playing = unityContainer.classList.contains('unity-fullscreen-active');
+        exitFsBtn.style.display = playing && !unityReady() ? 'block' : 'none';
+    }
+    setInterval(syncExitButton, 500);
 
     window.deactivateFullScreen = function() {
         unityContainer.classList.remove('unity-fullscreen-active');
