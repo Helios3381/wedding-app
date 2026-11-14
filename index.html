@@ -1,757 +1,139 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阿銘 ＆ 阿萱 結婚囉 | 婚禮互動館</title>
-    <!-- 加到主畫面（iPhone「加入主畫面」）時的圖示與名稱 -->
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <meta name="apple-mobile-web-app-title" content="阿銘＆阿萱">
-    <style>
-        /* --- 強烈傳統喜慶與長輩大字體風格設計 --- */
-        :root {
-            --wedding-red: #C62828;   /* 傳統大氣正紅，充滿喜氣 */
-            --wedding-gold: #E5A93C;  /* 尊爵正金，高質感點綴 */
-            --light-gold: #FFF9E6;    /* 柔和金黃底色，保護眼睛不刺眼 */
-            --text-dark: #2C2C2C;     /* 純深色黑，確保字體清晰度最高 */
-            --white: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif; 
-            background-color: var(--wedding-red); /* 滿版大紅背景，喜氣洋洋 */
-            color: var(--text-dark);
-            line-height: 1.7;
-            padding: 12px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* 手機直式主容器 */
-        .container {
-            background: var(--light-gold); /* 內頁採用柔和淺金底 */
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 4px solid var(--wedding-gold); /* 粗金邊框，彰顯莊重 */
-            padding: 25px 15px;
-            max-width: 460px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* 標題採用大氣宋體，字體特別加大 */
-        h1 {
-            font-family: "Noto Serif TC", "Songti TC", serif; 
-            color: var(--wedding-red);
-            font-size: 2.1rem; /* 超大標題字 */
-            margin-bottom: 6px;
-            letter-spacing: 2px;
-            font-weight: 900;
-        }
-
-        .subtitle {
-            font-size: 1.1rem; /* 加大副標題 */
-            color: #555;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        /* 滾動祝福跑馬燈 */
-        #marquee-bg { 
-            background: var(--white); 
-            padding: 10px; 
-            overflow: hidden; 
-            white-space: nowrap; 
-            border: 2px solid var(--wedding-red);
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        #marquee-text { 
-            display: inline-block; 
-            animation: marquee 22s linear infinite; 
-            color: var(--wedding-red); 
-            font-weight: 900; 
-            font-size: 1.1rem; /* 跑馬燈字體加大，方便長輩閱讀 */
-        }
-        @keyframes marquee { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
-
-        /* 直式導覽大按鈕排版 */
-        nav {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-        nav button {
-            background: var(--white);
-            border: 3px solid var(--wedding-red); 
-            color: var(--wedding-red); 
-            padding: 16px; /* 加厚按鈕，長輩超好按 */
-            border-radius: 12px;
-            font-size: 1.25rem; /* 字體放大 */
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        nav button.active {
-            background: linear-gradient(135deg, var(--wedding-red), #991B1B);
-            color: var(--white);
-            border-color: var(--wedding-gold);
-            box-shadow: 0 6px 15px rgba(198, 40, 40, 0.4);
-        }
-
-        /* 模組內容區塊 */
-        .view-section {
-            display: none;
-            border-top: 3px dashed var(--wedding-red);
-            padding-top: 25px;
-        }
-        .view-section.active {
-            display: block;
-        }
-
-        /* 專門為長輩設計的超清晰說明區塊 */
-        .rule-box {
-            background-color: var(--white);
-            border-left: 6px solid var(--wedding-red);
-            padding: 18px;
-            text-align: left;
-            font-size: 1.1rem; /* 字體加大 */
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .rule-box ul { padding-left: 22px; margin-top: 8px; }
-        .rule-box li { margin-bottom: 6px; }
-        .hint-highlight { color: var(--wedding-red); font-weight: 900; }
-
-        /* 額度顯示大標籤 */
-        .quota-badge {
-            display: inline-block;
-            background-color: var(--wedding-red);
-            color: #ffffff;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 1.1rem; /* 字體加大 */
-            font-weight: bold;
-            margin-bottom: 18px;
-            border: 2px solid var(--wedding-gold);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-        }
-
-       /* --- Unity 全螢幕強制滿版樣式 (針對 iOS Safari 備用) --- */
-        .unity-fullscreen-active {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            height: 100dvh !important;
-            padding-bottom: 0 !important;
-            z-index: 99999 !important;
-            border-radius: 0 !important;
-            border: none !important;
-        }
-        html.unity-page-locked, html.unity-page-locked body {
-            overflow: hidden !important;
-            overscroll-behavior: none;
-        }
-
-        /* 表單輸入設計 */
-        .form-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            font-size: 1.15rem; /* 字體加大 */
-            font-weight: 900;
-            color: var(--wedding-red);
-            margin-bottom: 8px;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 14px; /* 加大觸控範圍 */
-            border: 2px solid var(--wedding-gold);
-            border-radius: 10px;
-            font-size: 1.15rem; /* 輸入進去的字很大 */
-            color: var(--text-dark);
-            background-color: var(--white);
-            font-weight: bold;
-            outline: none;
-        }
-        input[type="text"]:focus, textarea:focus {
-            border: 3px solid var(--wedding-red);
-        }
-
-        /* 超大送出按鈕 */
-        .btn-action {
-            background: linear-gradient(135deg, #F5B041, var(--wedding-gold));
-            color: var(--text-dark);
-            border: 2px solid var(--white);
-            padding: 16px;
-            width: 100%;
-            border-radius: 12px;
-            font-size: 1.3rem; /* 醒目大按鈕字 */
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            transition: all 0.2s;
-        }
-        .btn-action:hover {
-            transform: translateY(-1px);
-        }
-        .btn-action:disabled {
-            background: #d3d3d3 !important;
-            color: #777777 !important;
-            border-color: #aaa !important;
-            cursor: not-allowed !important;
-        }
-
-        /* 跑酷遊戲介面 */
-        #game-wrapper { display: none; margin-top: 15px; }
-        #game-container {
-            position: relative;
-            width: 100%;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 3px solid var(--wedding-gold);
-        }
-        canvas { display: block; width: 100%; height: auto; background: #fff3e0; }
-        #game-ui {
-            position: absolute;
-            top: 8px; left: 8px; right: 8px;
-            display: flex; justify-content: space-between;
-            color: #fff; font-weight: 900; font-size: 0.95rem;
-            text-shadow: 1px 1px 3px #000;
-        }
-        #stage-announcement {
-            position: absolute;
-            top: 40%; left: 50%; transform: translate(-50%, -50%);
-            color: #FFEB3B; font-size: 1.5rem; font-weight: 900;
-            text-shadow: 2px 2px 4px #000; text-align: center; width: 90%;
-            line-height: 1.4;
-        }
-
-        /* 抽卡大視覺 */
-        .card-slot {
-            width: 160px; height: 240px;
-            border: 3px dashed var(--wedding-red);
-            margin: 20px auto; border-radius: 15px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: var(--white); position: relative; overflow: hidden;
-        }
-        .card-slot img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .rarity-tag {
-            position: absolute; top: 8px; right: 8px;
-            padding: 4px 10px; border-radius: 6px;
-            color: #fff; font-weight: 900; font-size: 0.85rem; display: none;
-        }
-        .ssr { background: linear-gradient(45deg, #FF0000, #FFD700); border: 2px solid #fff; }
-        .sr { background: #9400D3; }
-        .n { background: #A9A9A9; }
-
-        /* 全螢幕彈窗通用基礎樣式 */
-        .fullscreen-overlay-box {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 999;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            color: #fff; padding: 20px; text-align: center;
-        }
-
-        /* 照片上傳包裝 */
-        .file-upload-label {
-            display: block; background-color: var(--white);
-            border: 3px dashed var(--wedding-gold); padding: 25px 20px;
-            border-radius: 12px; cursor: pointer; font-size: 1.15rem; font-weight: bold;
-        }
-        .preview-image { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; border: 2px solid var(--wedding-red); }
-
-        /* 排行榜表格字體同步加大 */
-        table { width: 100%; border-collapse: collapse; margin-top: 12px; background: #fff; border-radius: 10px; overflow: hidden; border: 2px solid var(--wedding-gold); }
-        th, td { padding: 14px 10px; text-align: center; border-bottom: 1px solid #FFE6E6; font-size: 1.1rem; font-weight: bold; }
-        th { background: var(--wedding-red); color: white; font-size: 1.15rem; }
-
-        .success-message {
-            display: none; background-color: #E8F5E9; color: #2E7D32;
-            padding: 18px; border-radius: 10px; margin-top: 15px;
-            font-size: 1.1rem; font-weight: bold; text-align: left; border: 2px solid #A5D6A7;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8f1738">
+<title>凱銘 ＆ 詠萱｜囍歡你！幸福遊樂園</title>
+<!-- 加到主畫面（iPhone「加入主畫面」）時的圖示與名稱 -->
+<link rel="apple-touch-icon" href="assets/generated/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="assets/generated/icons/favicon.png">
+<meta name="apple-mobile-web-app-title" content="阿銘＆阿萱">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&family=Iansui&family=LXGW+WenKai+TC&text=%E5%9B%8D%E6%AD%A1%E4%BD%A0%EF%BC%81%E5%B9%B8%E7%A6%8F%E9%81%8A%E6%A8%82%E5%9C%92&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="module" src="js/main.js"></script>
 </head>
 <body>
+<!-- 文言はすべて js/i18n/ の言語ファイルから入る（data-i18n＝文字、data-i18n-html＝HTML、data-i18n-attr＝属性） -->
 
-<div class="container">
-    <h1>阿銘 ＆ 阿萱 結婚囉 囍</h1>
-    <div class="subtitle">二進互動小遊戲專區 | 2027.01.01</div>
+<!-- --- 入席報到 --- -->
+<div class="ov on" id="wel"><div class="vc"><div class="xi">囍</div><h2 data-i18n="wel.title"></h2><p class="mut" data-i18n-html="wel.desc"></p><input type="text" id="nm" maxlength="12" autocomplete="off" data-i18n-attr="placeholder:wel.placeholder"><button class="btn" data-action="enter" data-i18n="wel.button"></button></div></div>
+<!-- --- 領獎憑證 --- -->
+<div class="ov" id="vo"><div class="vc"><div class="xi">賀</div><h2 id="vt"></h2><p id="vm"></p><div class="code" id="vcode"></div><p class="mut" id="vnote" data-i18n="voucher.note"></p><button class="btn g" data-action="closeVoucher" data-i18n="voucher.ok"></button></div></div>
+<!-- --- 確認對話框 --- -->
+<div class="ov" id="ask" style="z-index:110"><div class="vc"><div class="xi">囍</div><p id="askm" style="font-weight:900;color:var(--wine);font-size:1.05rem"></p><button class="btn g" id="asky" data-i18n="ask.yes"></button><button class="btn" id="askn" style="background:#fff;color:var(--wine)" data-i18n="ask.no"></button></div></div>
+<!-- --- 幸福慢遞：投遞動畫 --- -->
+<div class="ov" id="post"><div class="vc"><h2 data-i18n="post.title"></h2><div class="pst"><div class="pw"><div class="pol"><img id="polimg" alt=""><div class="ph" id="polph">💌</div><small>2027.01.01 ♥</small></div></div><div class="mbx"><div class="cp"></div><div class="bd2"></div><div class="sl"></div><div class="pl" data-i18n-html="post.plate"></div><div class="bs"></div></div>
+  <svg class="pm" viewBox="0 0 200 100" aria-hidden="true"><g fill="none" stroke="#b0173b" stroke-width="3"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="36" stroke-width="1.5"/><path d="M100 32q12-10 24 0t24 0 24 0 24 0M100 50q12-10 24 0t24 0 24 0 24 0M100 68q12-10 24 0t24 0 24 0 24 0"/></g><g fill="#b0173b" text-anchor="middle" font-weight="900" font-family="serif"><text x="50" y="40" font-size="12" data-i18n="post.mark"></text><text x="50" y="57" font-size="10.5">2027.01.01</text><text x="50" y="73" font-size="10">♥ 囍 ♥</text></g></svg></div>
+  <div class="pdone"><p style="font-weight:900;color:var(--wine);margin:0" data-i18n="post.done"></p><button class="btn g" data-action="closePost" data-i18n="post.ok"></button></div></div></div>
+<!-- --- 回憶圖鑑：放大檢視 --- -->
+<div class="ov" id="vw" data-action="closeViewer"><div style="position:relative;width:230px;height:320px"><div class="face front" id="vf" style="transform:none;backface-visibility:visible"></div></div></div>
 
-    <div id="marquee-bg">
-        <div id="marquee-text">祝阿銘與阿萱百年好合、永浴愛河！ 🎉 | 闖關遊戲前六名有神祕好禮！ 🏆 | 抽中限量SSR卡片記得保留畫面唷 ❤️</div>
+<div class="app">
+<header>
+  <div class="lang" id="lang"></div>
+  <button id="mt" data-action="toggleMute" data-i18n-attr="aria-label:header.sound"></button>
+  <i class="twk" style="left:22%;top:22%;font-size:.7rem;animation-delay:0s">✦</i><i class="twk" style="left:74%;top:16%;font-size:.9rem;animation-delay:0.9s">✦</i><i class="twk" style="left:17%;top:48%;font-size:.55rem;animation-delay:1.7s">✦</i><i class="twk" style="left:80%;top:44%;font-size:.6rem;animation-delay:0.5s">✦</i>
+  <div class="hx"><i class="ray"></i><div class="sl"><b>囍</b></div></div>
+  <h1>凱銘<em>＆</em>詠萱</h1>
+  <div class="sub"><span>2027 · 01 · 01</span><div class="fun" id="fun"></div></div>
+  <svg class="arc" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0Q200 58 400 0V30H0z" fill="#fffaf0"/></svg>
+</header>
+<div class="mq"><div class="mqv"><span id="mq"></span></div></div>
+
+<main>
+<!-- --- 首頁：集章、排行榜、新人禮 --- -->
+<section class="v on" id="v-home">
+  <div class="pn"><button class="dmt off cor" data-action="toggleDm" data-i18n-attr="aria-label:dm.toggle"><svg aria-hidden="true"><use href="#i-dm"/></svg><span data-i18n="dm.label"></span><i class="sw"></i></button><h2 id="hi"></h2><p class="mut" id="sp"></p><div class="stamps" id="stamps"></div><div class="tasks" id="tasks"></div></div>
+  <div class="pn"><h2><span data-i18n="lb.title"></span><span class="top">TOP 6</span></h2><p class="mut" data-i18n="lb.desc"></p><div class="pod" id="pod"></div><table><tbody id="lb"></tbody></table></div>
+  <div class="pn"><h2><svg class="ic"><use href="#i-gift"/></svg><span data-i18n="gifts.title"></span></h2><p class="mut" data-i18n-html="gifts.desc"></p>
+    <div class="gifts">
+      <div class="gift"><span class="gn">壹</span><div><b data-i18n-html="gifts.g1"></b><small data-i18n="gifts.g1d"></small></div></div>
+      <div class="gift"><span class="gn">貳</span><div><b data-i18n-html="gifts.g2"></b><small data-i18n="gifts.g2d"></small></div></div>
+      <div class="gift"><span class="gn">參</span><div><b data-i18n-html="gifts.g3"></b><small data-i18n="gifts.g3d"></small></div></div>
     </div>
+    <div class="egg"><svg aria-hidden="true"><use href="#i-egg"/></svg><div><small data-i18n="gifts.eggTag"></small><b data-i18n="gifts.egg"></b><span data-i18n-html="gifts.eggDesc"></span></div></div>
+    <div class="alarm"><svg aria-hidden="true"><use href="#i-alarm"/></svg><div><small data-i18n="gifts.alarmTag"></small><b data-i18n="gifts.alarm"></b></div></div>
+  </div>
+</section>
 
-    <nav>
-        <button id="nav-home" class="active" onclick="switchView('home')">🌸 婚禮首頁與即時排行</button>
-        <button id="nav-game" onclick="switchView('game')">🏃 愛的大冒險 (跑酷闖關)</button>
-        <button id="nav-draw" onclick="switchView('draw')">🔮 愛的抽抽卡 (照片收集)</button>
-        <button id="nav-msg" onclick="switchView('msg')">✍️ 愛的留言板 (現場彈幕)</button>
-        <button id="nav-print" onclick="switchView('print')">🖨️ 印印相片 (沖印4x6)</button>
-    </nav>
+<!-- --- 愛的大冒險：Unity 遊戲 --- -->
+<section class="v" id="v-game"><div class="pn">
+  <h2><svg class="ic"><use href="#i-game"/></svg><span data-i18n="game.title"></span></h2>
+  <p data-i18n-html="game.lead"></p>
+  <p class="mut" data-i18n-html="game.controls"></p>
+  <div class="ugame" id="ugame">
+    <div class="ugo" id="ugo" data-action="startGame"><div id="ugo-text" data-i18n-html="game.tapToPlay"></div></div>
+    <iframe id="unity" data-src="JumpmanGL/index.html" allowfullscreen data-i18n-attr="title:game.title"></iframe>
+    <button class="ugx" id="ugx" data-action="exitGame" hidden data-i18n="game.back"></button>
+  </div>
+  <p class="mut" style="text-align:center" data-i18n="game.landscape"></p>
+  <div id="res" hidden><h2 id="rt"></h2><p id="rm"></p><button class="btn g" data-go="home" data-i18n="game.toRanking"></button></div>
+</div></section>
 
-    <div id="view-home" class="view-section active">
-        <div class="rule-box">
-            <strong>✨ 婚宴現場溫馨指南：</strong><br>
-            歡迎各位長輩與至親好友！請點擊上方<b>超大直式選單</b>參與現場互動。<br><br>
-            「愛的大冒險」排名前六名、以及抽到「SSR/SR」黃金閃卡畫面的親友，二次進場時請準備上台，新郎新娘有準備精美神秘大獎要送給您喔！
-        </div>
-        <h3 style="color: var(--wedding-red); margin-top: 20px; font-size: 1.3rem; font-weight: 900;">🏆 遊戲積分現場前 5 名</h3>
-        <table>
-            <thead><tr><th>名次</th><th>賓客姓名</th><th>積分紀錄</th></tr></thead>
-            <tbody id="leaderboard-rows"></tbody>
-        </table>
-    </div>
+<!-- --- 幸福盲盒：抽卡 --- -->
+<section class="v" id="v-draw"><div class="pn">
+  <h2><svg class="ic"><use href="#i-draw"/></svg><span data-i18n="draw.title"></span></h2><div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gem"/></svg><div><b data-i18n="draw.lot"></b><small data-i18n="draw.lotDesc"></small></div><span class="lotn" id="dl" data-i18n-attr="data-l:lot.left">5/5</span></div>
+  <div class="scene" id="sc"><div class="card" id="cd"><div class="face back">囍</div><div class="face front" id="fr"></div></div></div>
+  <p id="cap" style="text-align:center;min-height:52px;font-weight:700;color:var(--wine)"></p>
+  <button class="btn" id="db" data-action="drawCard"></button>
+  <p class="mut" style="text-align:center;margin-top:14px"><span data-i18n="draw.album"></span> <b id="ac"></b>　<small data-i18n="draw.albumHint"></small></p><div class="alb" id="alb"></div>
+</div></section>
 
-    <div id="view-game" class="view-section">
-        <div class="rule-box">
-            <strong>🎮 專屬婚禮遊戲：</strong><br>
-            這款遊戲是新郎/新娘親自開發的喔！點擊下方大按鈕即可進入全螢幕遊玩！<br>
-            <span style="color: var(--wedding-red); font-size: 0.95rem;">💡 建議將手機轉橫，體驗更佳喔！</span>
-        </div>
+<!-- --- 愛的祝福留言板 --- -->
+<section class="v" id="v-wish"><div class="pn">
+  <h2><svg class="ic"><use href="#i-wish"/></svg><span data-i18n="wish.title"></span></h2><p class="mut" data-i18n="wish.desc"></p><div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gift"/></svg><div><b data-i18n="wish.lot"></b><small data-i18n="wish.lotDesc"></small></div><span class="lotn" id="lotn" data-i18n-attr="data-l:lot.got">0/3</span></div>
+  <div class="dmrow"><span data-i18n="wish.dmAsk"></span><button class="dmt off" data-action="toggleDm" data-i18n-attr="aria-label:dm.toggle"><svg aria-hidden="true"><use href="#i-dm"/></svg><span data-i18n="dm.label"></span><i class="sw"></i></button></div>
+  <div class="chips" id="chips"></div>
+  <label for="wt" data-i18n="wish.label"></label><textarea id="wt" rows="3" maxlength="80" data-i18n-attr="placeholder:wish.placeholder"></textarea>
+  <button class="btn" data-action="sendWish" data-i18n="wish.send"></button>
+  <ul class="wl" id="wl"></ul>
+</div></section>
 
-        <div style="background: var(--white); padding: 15px; border-radius: 12px; border: 2px dashed var(--wedding-red); margin-bottom: 15px; font-size: 1.15rem; font-weight: 900; color: var(--wedding-red);">
-            親愛的賓客 <span id="lbl-game-username" style="color: var(--text-dark); background: #fff3e0; padding: 2px 10px; border-radius: 6px; border: 1px solid var(--wedding-gold);"></span> 歡迎前來挑戰！🏆
-        </div>
+<!-- --- 愛的悄悄話：感謝信＋開運籤 --- -->
+<section class="v" id="v-fort"><div class="pn">
+  <h2><svg class="ic"><use href="#i-fort"/></svg><span data-i18n="fort.title"></span></h2><p class="mut" data-i18n="fort.desc"></p>
+  <button class="env" id="env" data-action="openEnv" data-i18n-attr="aria-label:fort.envLabel"><div class="e3" id="e3"><div class="e-back"></div><div class="e-paper"><img class="ep-ill" src="assets/generated/images/letter-illustration.webp" alt=""></div><div class="e-front"></div><div class="e-flap"></div><div class="seal">囍</div></div><span class="mut" data-i18n="fort.envHint"></span></button>
+  <div id="ltr" hidden><div class="letter" id="lt" data-action="readLetterAll">
+    <div class="lhd"><span>囍</span><span data-i18n="letter.to" style="color:inherit;font-size:inherit"></span><span>囍</span></div>
+    <p class="lp sal" data-i18n="letter.salute"></p>
+    <p class="lp" data-i18n-html="letter.p1"></p>
+    <p class="lp" data-i18n-html="letter.p2"></p>
+    <img class="lp lill" src="assets/generated/images/letter-illustration.webp" data-i18n-attr="alt:letter.illustration">
+    <p class="lp" data-i18n-html="letter.p3"></p>
+    <p class="lp ask" data-i18n="letter.ask"></p>
+    <div class="lp tip"><svg class="ti"><use href="#i-photo"/></svg><div><small data-i18n="letter.ask1Tag"></small><b data-i18n="letter.ask1"></b></div></div>
+    <div class="lp tip"><svg class="ti"><use href="#i-feast"/></svg><div><small data-i18n="letter.ask2Tag"></small><b data-i18n="letter.ask2"></b></div></div>
+    <p class="lp end" data-i18n-html="letter.end"></p>
+    <div class="lp sig"><div><b data-i18n="letter.sign"></b> <span data-i18n="letter.signSuffix"></span><small>2027.01.01</small></div><span class="lseal">囍</span></div>
+    <p class="skip" id="skip" data-i18n="letter.skip"></p>
+  </div>
+  <div class="tw" id="tw" hidden><div class="tube" id="tube"><div class="sticks"><i style="--x:-34px;--r:-17deg;--h:132px"></i><i style="--x:-22px;--r:-10deg;--h:148px"></i><i style="--x:-10px;--r:-4deg;--h:140px"></i><i class="hero" id="hero"></i><i style="--x:10px;--r:5deg;--h:144px"></i><i style="--x:22px;--r:11deg;--h:136px"></i><i style="--x:34px;--r:17deg;--h:128px"></i></div><div class="tbody"><div class="tl"><small>2027</small><b data-i18n="fort.tube"></b></div></div></div><div class="fly" id="fly"><span></span></div></div>
+  <button class="btn" id="fb" data-action="drawFort" hidden data-i18n="fort.draw"></button>
+  <p class="mut" id="fbh" style="text-align:center;margin:6px 0 0" hidden data-i18n="fort.drawHint"></p>
+  <div class="fort" id="fo" hidden></div>
+  <button class="btn g" id="fk" data-action="takeFort" hidden data-i18n="fort.take"></button>
+  <div id="fdone" hidden><p class="mut" style="text-align:center" data-i18n="fort.done"></p><button class="btn" data-go="draw" data-i18n="fort.toDraw"></button></div></div>
+</div></section>
 
-        <div id="unity-container" style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; border-radius: 12px; border: 3px solid var(--wedding-gold); background: #000; transition: all 0.3s;">
-            
-            <div id="fullscreen-overlay" onclick="tryActivateFullScreen()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s;">
-                <div id="overlay-text" style="color: white; font-size: 1.2rem; font-weight: bold; border: 3px solid var(--wedding-gold); padding: 12px 24px; border-radius: 12px; background: rgba(198, 40, 40, 0.9); text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    👆 準備就緒！<br>點擊這裡進入全螢幕遊玩
-                </div>
-            </div>
-
-            <iframe id="unity-iframe" 
-                    src="./JumpmanGL/index.html" 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                    scrolling="no"
-                    allowfullscreen>
-            </iframe>
-
-            <button id="exit-fs-btn" onclick="deactivateFullScreen()" style="display: none; position: absolute; top: 15px; left: 15px; z-index: 20; padding: 10px 15px; background: rgba(0,0,0,0.7); color: white; border: 2px solid white; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer;">
-                ⬅️ 返回網頁
-            </button>
-            
-        </div>
-    </div>
-
-    <div id="view-draw" class="view-section">
-        <div class="quota-badge" id="drawBadge">剩餘抽卡機會：5 / 5 次</div>
-        <div class="rule-box">
-            精選兩人的出國照片與生活剪影！若幸運抽到黃金 SSR/SR 閃卡，手機會震動並彈出中獎通知，請放心理心大膽抽！
-        </div>
-        <div class="card-slot" id="card-slot">
-            <span id="slot-placeholder" style="font-size: 2.5rem; color: var(--wedding-gold); font-weight: 900;">囍</span>
-            <div class="rarity-tag" id="card-tag"></div>
-            <img id="card-img" src="" alt="婚禮照片">
-        </div>
-        <p id="card-caption" style="font-weight: bold; min-height: 24px; color: var(--wedding-red); margin-bottom: 15px; font-size: 1.1rem; line-height: 1.5;"></p>
-        <button id="btn-draw" class="btn-action" onclick="executeDrawCard()">點此注入幸福 抽卡！</button>
-    </div>
-
-    <div id="view-msg" class="view-section">
-        <div class="form-group">
-            <label>您的姓名/稱謂（已鎖定）：</label>
-            <input type="text" id="msg-user" disabled style="background-color: #e2e2e2; color: #666; border: 2px solid #bbb; cursor: not-allowed; box-shadow: none;">
-        </div>
-        <div class="form-group">
-            <label>寫下給阿銘與阿萱的祝福：</label>
-            <textarea id="msg-content" rows="3" placeholder="祝新婚快樂、永浴愛河！"></textarea>
-        </div>
-        <button class="btn-action" onclick="submitGuestMessage()">點此送出祝福 (即時登上大螢幕) ✨</button>
-    </div>
-
-    <div id="view-print" class="view-section">
-        <div class="quota-badge" id="printBadge">今日免費沖印額度：1 / 1 張</div>
-        <div class="rule-box">
-            <strong>🖨️ 沖印布告欄：</strong><br>
-            請上傳您今天在現場拍得最好的合照！小幫手會現場幫您印製出 4x6 吋精美實體相片。每人限印一張，如果有多張照片，歡迎先拼圖再上傳喔！
-        </div>
-        <div class="form-group">
-            <label for="print-file" class="file-upload-label" id="printLabel">
-                <span id="printText">📸 點擊這裡選取手機相簿相片</span>
-                <img id="print-preview" class="preview-image" style="display:none;">
-            </label>
-            <input type="file" id="print-file" accept="image/*" onchange="processPrintUpload()">
-        </div>
-        <button id="printSubmitBtn" class="btn-action" onclick="submitToPrintQueue()">確認相片無誤，排程送往列印 🖨️</button>
-        <div class="success-message" id="printSuccessMsg">
-            🎉 相片上傳成功！現場排程快馬加鞭列印中。吃飽飯或離場環節時，請記得至宴會廳外的「相片便利貼牆」認領您專屬的實體相片回家！
-        </div>
-    </div>
+<!-- --- 幸福慢遞：相片印刷 --- -->
+<section class="v" id="v-photo"><div class="pn">
+  <h2><svg class="ic"><use href="#i-photo"/></svg><span data-i18n="photo.title"></span></h2><p class="mut" data-i18n="photo.desc"></p>
+  <div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-polaroid"/></svg><div><b data-i18n="photo.lot"></b><small data-i18n="photo.lotDesc"></small></div><span class="lotn" id="pq" data-i18n-attr="data-l:lot.left">1/1</span></div>
+  <label class="drop" id="dz"><span id="dt" data-i18n="photo.pick"></span><input type="file" id="pf" accept="image/*"><img id="pv" hidden data-i18n-attr="alt:photo.preview"></label>
+  <div class="form"><input type="text" id="rn" maxlength="20" autocomplete="name" data-i18n-attr="placeholder:photo.name"><input type="text" inputmode="tel" id="rp" maxlength="15" autocomplete="tel" data-i18n-attr="placeholder:photo.phone"><input type="text" inputmode="numeric" id="rz" maxlength="8" autocomplete="postal-code" data-i18n-attr="placeholder:photo.zip"><input type="text" id="ra" maxlength="80" autocomplete="street-address" data-i18n-attr="placeholder:photo.addr"></div>
+  <button class="btn g" id="pb" data-action="sendPhoto" data-i18n="photo.send"></button>
+  <p class="mut" id="pn"></p>
+</div></section>
+</main>
+<footer id="copyright"></footer>
 </div>
 
-<!-- 中獎大彈窗 -->
-<div id="prize-overlay" class="fullscreen-overlay-box">
-    <h1 style="color: var(--wedding-gold); margin-bottom: 15px; font-size: 2.2rem;">🎉 恭喜您中大獎 🎉</h1>
-    <h2 id="overlay-rarity" style="margin-bottom: 10px; color: #fff; font-size: 1.5rem;"></h2>
-    <p id="overlay-msg" style="font-size: 1.2rem; margin-bottom: 25px; max-width: 85%; line-height: 1.6; font-weight: bold;"></p>
-    <div style="color: var(--wedding-red); font-weight: 900; background: #fff; padding: 14px 20px; border-radius: 25px; font-size: 1.15rem; border: 3px solid var(--wedding-gold);">
-        ⚠️ 請不要關閉此畫面，這張就是您的上台領獎憑證！
-    </div>
-    <button class="btn-action" style="width: auto; margin-top: 30px; padding: 12px 40px; background: var(--wedding-gold); color: #000;" onclick="closePrizeOverlay()">好，我知道了</button>
-</div>
-
-<!-- 全螢幕姓名輸入攔截彈窗 -->
-<div id="first-load-name-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--wedding-red); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
-    <div style="background: var(--light-gold); border: 4px solid var(--wedding-gold); padding: 30px 20px; border-radius: 20px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <h2 style="color: var(--wedding-red); font-family: 'Noto Serif TC', serif; font-size: 1.8rem; margin-bottom: 12px; font-weight: 900;">歡迎蒞臨幸福現場 囍</h2>
-        <p style="font-size: 1.1rem; font-weight: bold; margin-bottom: 20px; color: var(--text-dark); line-height: 1.6;">
-            為了讓您參與現場「跑酷排行」與「即時彈幕留言」，請先輸入您的<b>真實姓名或親友稱謂</b>：
-        </p>
-        
-        <div class="form-group" style="background: #fff; padding: 10px; border-radius: 12px; border: 1px solid var(--wedding-gold);">
-            <input type="text" id="initial-user-name" placeholder="例：王大明 / 三姑媽 / 阿豪" style="text-align: center; font-size: 1.3rem; padding: 10px; border: none;">
-        </div>
-        
-        <p style="color: var(--wedding-red); font-weight: 900; font-size: 1rem; margin-bottom: 20px; line-height: 1.5;">
-            ⚠️ 溫馨提示：送出後即鎖定<span style="text-decoration: underline;">無法修改</span>！<br>請填寫真實中文名字以方便上台領取大獎唷！
-        </p>
-        <button class="btn-action" onclick="saveInitialNameAndUnlockSite()">確認無誤，開玩！✨</button>
-    </div>
-</div>
-
-<script type="module">
-    // 引入 Firebase SDK (Realtime Database 用に修正しました)
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, push, onValue, query, limitToLast, serverTimestamp, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-    // 🏆 這是您的專屬 Firebase 設定 🏆
-    const firebaseConfig = {
-        apiKey: "AIzaSyAWY1ZrLeEwZ1397Lxz2LbxMS-bo4s0OqA",
-        authDomain: "weddinggame-93bad.firebaseapp.com",
-        databaseURL: "https://weddinggame-93bad-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "weddinggame-93bad",
-        storageBucket: "weddinggame-93bad.firebasestorage.app",
-        messagingSenderId: "243961475300",
-        appId: "1:243961475300:web:24d003b1b162fb8a5ebcf1",
-        measurementId: "G-7TDS50SNNN"
-    };
-
-    // 初始化 Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // --- 本地狀態管理 ---
-    if (!localStorage.getItem('wed_draw_left')) localStorage.setItem('wed_draw_left', '5');
-    if (!localStorage.getItem('wed_print_done')) localStorage.setItem('wed_print_done', 'false');
-    document.getElementById('drawBadge').innerText = `剩餘抽卡機會：${localStorage.getItem('wed_draw_left')} / 5 次`;
-
-    if (localStorage.getItem('wed_print_done') === 'true') {
-        setTimeout(() => window.lockPrintSystem(), 200);
-    }
-
-    // --- 導覽切換 ---
-    window.switchView = function(viewId) {
-        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
-        document.getElementById(`view-${viewId}`).classList.add('active');
-        document.getElementById(`nav-${viewId}`).classList.add('active');
-    };
-
-    // --- 姓名攔截與綁定 ---
-    function initNameVerification() {
-        const savedName = localStorage.getItem('wed_user_name');
-        if (!savedName) {
-            document.getElementById('first-load-name-overlay').style.display = 'flex';
-        } else {
-            syncGlobalUsername(savedName);
-        }
-    }
-
-    window.saveInitialNameAndUnlockSite = function() {
-        const inputEl = document.getElementById('initial-user-name');
-        const name = inputEl.value.trim();
-        if (name === "") { alert("請輸入您的姓名或稱謂！🎉"); inputEl.focus(); return; }
-        localStorage.setItem('wed_user_name', name);
-        syncGlobalUsername(name);
-        document.getElementById('first-load-name-overlay').style.display = 'none';
-        alert(`綁定成功！歡迎您 ${name}，祝您玩得開心！🎁`);
-    };
-
-    function syncGlobalUsername(name) {
-        document.getElementById('lbl-game-username').innerText = name;
-        document.getElementById('msg-user').value = name;
-    }
-    initNameVerification();
-
-    // --- Unity 全螢幕控制 ---
-    const unityContainer = document.getElementById('unity-container');
-    const fsOverlay = document.getElementById('fullscreen-overlay');
-    const exitFsBtn = document.getElementById('exit-fs-btn');
-    // iPadOS Safari 預設回報為 Macintosh，要用觸控點數來判斷
-    const isIPad = /iPad/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
-
-    window.tryActivateFullScreen = function() {
-        fsOverlay.style.display = 'none';
-        unityContainer.classList.add('unity-fullscreen-active');
-        document.documentElement.classList.add('unity-page-locked');
-        syncExitButton();
-        // iPad Safari 的原生全螢幕「往下滑」就會退出（網頁無法關閉此手勢），會跟遊戲的滑行操作衝突，所以 iPad 只用 CSS 滿版。
-        if (!isIPad) {
-            if (unityContainer.requestFullscreen) unityContainer.requestFullscreen();
-            else if (unityContainer.webkitRequestFullscreen) unityContainer.webkitRequestFullscreen();
-        }
-
-        // start game bgm
-        try {
-            const iframeWin = document.getElementById('unity-iframe').contentWindow;
-            if (iframeWin && typeof iframeWin.callUnityStartBGM === 'function') {
-                iframeWin.callUnityStartBGM();
-         }
-        } catch (e) {
-          console.warn("BGM error：", e);
-        }
-    };
-
-    // 遊戲載入完成後，「返回網頁」改由遊戲畫面內的按鈕提供（主畫面／暫停／結算），避免這顆按鈕蓋住分數。
-    // 遊戲還在讀取時，才顯示網頁自己的按鈕。
-    function unityReady() {
-        try { return !!document.getElementById('unity-iframe').contentWindow.unityInstance; } catch (e) { return false; }
-    }
-    function syncExitButton() {
-        const playing = unityContainer.classList.contains('unity-fullscreen-active');
-        exitFsBtn.style.display = playing && !unityReady() ? 'block' : 'none';
-    }
-    setInterval(syncExitButton, 500);
-
-    window.deactivateFullScreen = function() {
-        unityContainer.classList.remove('unity-fullscreen-active');
-        document.documentElement.classList.remove('unity-page-locked');
-        fsOverlay.style.display = 'flex';
-        exitFsBtn.style.display = 'none';
-        if (document.fullscreenElement) document.exitFullscreen();
-        else if (document.webkitFullscreenElement) document.webkitExitFullscreen();
-
-        //stop bgm after the full screen mode is exited
-        try {
-        const iframeWin = document.getElementById('unity-iframe').contentWindow;
-        if (iframeWin && typeof iframeWin.callUnityStopBGM === 'function') {
-            iframeWin.callUnityStopBGM();
-        }
-        } catch (e) {
-         console.warn("BGM停止エラー：", e);
-        }
-    };
-
-    const iframeEl = document.getElementById('unity-iframe');
-    let unityLoaded = false;
-    iframeEl.addEventListener('load', () => {
-        unityLoaded = true;
-    });
-    setTimeout(() => {
-        if (!unityLoaded) {
-            console.warn("Unity loading...");
-            const overlayText = document.getElementById('overlay-text');
-            overlayText.innerHTML = "⏳ 讀取時間較長，請耐心等候<br>或檢查網路連線後重新整理";
-        }
-    }, 20000);
-
-    // ================= Firebase: 即時排行榜 (Realtime Database) =================
-    const scoresRef = ref(db, 'wedding_scores');
-    onValue(scoresRef, (snapshot) => {
-        const tbody = document.getElementById('leaderboard-rows');
-        const data = snapshot.val();
-        if (!data) {
-            tbody.innerHTML = `<tr><td colspan="3" style="color:#666; padding: 25px 10px;">目前尚無紀錄，快來當第一個挑戰者吧！🏆</td></tr>`;
-            return;
-        }
-        
-        // 將資料轉為陣列並排序取前5名
-        const scoreList = Object.values(data).sort((a, b) => b.score - a.score).slice(0, 5);
-        let html = "";
-        scoreList.forEach((item, index) => {
-            html += `<tr><td style="color:var(--wedding-red);font-weight:bold;">${index+1}</td><td>${item.name}</td><td>${item.score} 分</td></tr>`;
-        });
-        tbody.innerHTML = html;
-    });
-
-    window.ReceiveScoreFromUnity = async function(score) {
-        const playerName = localStorage.getItem('wed_user_name') || "神秘嘉賓";
-        const newScore = parseInt(score) || 0;
-        
-        // 將名稱中的特殊符號替換掉，以符合 Firebase 鍵值規則
-        const safeName = playerName.replace(/[.#$\[\]\/]/g, '_');
-        const userRef = ref(db, 'wedding_scores/' + safeName);
-
-        try {
-            const snapshot = await get(userRef);
-            if (snapshot.exists()) {
-                if (newScore > snapshot.val().score) {
-                    await set(userRef, { name: playerName, score: newScore, timestamp: serverTimestamp() });
-                }
-            } else {
-                await set(userRef, { name: playerName, score: newScore, timestamp: serverTimestamp() });
-            }
-        } catch (e) { console.error("上傳分數失敗：", e); }
-    };
-
-    // ================= Firebase: 祝福留言板 =================
-    const msgQuery = query(ref(db, 'wedding_messages'), limitToLast(10));
-    onValue(msgQuery, (snapshot) => {
-        let msgs = [];
-        snapshot.forEach(childSnapshot => {
-            msgs.push(`${childSnapshot.val().name} 祝賀：${childSnapshot.val().message} 🌸`);
-        });
-        msgs.reverse(); // 最新留言在前面
-        const defaultText = "祝阿銘與阿萱百年好合、永浴愛河！ 🎉 | 闖關遊戲前六名有神祕好禮！ 🏆 | 抽中限量SSR卡片記得保留畫面唷 ❤️";
-        document.getElementById('marquee-text').innerHTML = msgs.length > 0 ? (msgs.join(' | ') + ' | ' + defaultText) : defaultText;
-    });
-
-    window.submitGuestMessage = async function() {
-        const name = localStorage.getItem('wed_user_name') || "神秘賓客";
-        const msgEl = document.getElementById('msg-content');
-        const content = msgEl.value.trim();
-        const btn = document.getElementById('btn-msg');
-
-        if(!content) { alert("請先輸入祝福話語再送出。"); return; }
-        
-        btn.innerText = "傳送雲端中...";
-        btn.disabled = true;
-
-        try {
-            await push(ref(db, 'wedding_messages'), {
-                name: name,
-                message: content,
-                timestamp: serverTimestamp()
-            });
-            alert("祝福成功送出！請抬頭看大螢幕跑馬燈 ✨");
-            msgEl.value = "";
-        } catch (e) {
-            alert("送出失敗，請檢查網路連線。");
-        } finally {
-            btn.innerText = "點此送出祝福 (即時登上大螢幕) ✨";
-            btn.disabled = false;
-        }
-    };
-
-    // ================= 抽卡邏輯與中獎紀錄 =================
-    const prizes = {
-        SSR: [{ title: "跨越時空的相遇", img: "https://placehold.co/300x450/C62828/ffffff?text=SSR+Wedding+Photo" }],
-        SR: [
-            { title: "甜蜜 Kiss 閃照 A", img: "https://placehold.co/300x450/E5A93C/ffffff?text=SR+Kiss+1" },
-            { title: "甜蜜 Kiss 閃照 B", img: "https://placehold.co/300x450/E5A93C/ffffff?text=SR+Kiss+2" }
-        ],
-        N: [{ title: "阿銘大口吃麥當勞", img: "https://placehold.co/300x450/ffffff/2c2c2c?text=N+McDonalds" }]
-    };
-
-    window.executeDrawCard = async function() {
-        let left = parseInt(localStorage.getItem('wed_draw_left'));
-        if(left <= 0) { alert("5 次機會已用完囉！"); return; }
-        
-        left--; 
-        localStorage.setItem('wed_draw_left', left.toString());
-        document.getElementById('drawBadge').innerText = `剩餘抽卡機會：${left} / 5 次`;
-
-        let seed = Math.random() * 100, rarity = "N", item;
-        if(seed < 4) { rarity = "SSR"; item = prizes.SSR[0]; }
-        else if(seed < 24) { rarity = "SR"; item = prizes.SR[Math.floor(Math.random()*prizes.SR.length)]; }
-        else { rarity = "N"; item = prizes.N[0]; }
-
-        document.getElementById('slot-placeholder').style.display = 'none';
-        document.getElementById('card-img').src = item.img;
-        document.getElementById('card-img').style.display = 'block';
-        const tag = document.getElementById('card-tag');
-        tag.className = `rarity-tag ${rarity.toLowerCase()}`; tag.innerText = rarity; tag.style.display = 'block';
-
-        if(rarity === 'N') {
-            document.getElementById('card-caption').innerText = `【${rarity}】${item.title}\n感謝您前來見證我們的平凡日常 ❤️`;
-        } else {
-            document.getElementById('card-caption').innerText = `✨🌟 恭喜抽中【${rarity}】${item.title} 🌟✨`;
-            if (navigator.vibrate) navigator.vibrate(500); 
-
-            // 同步中獎紀錄至 Firebase
-            try {
-                const userName = localStorage.getItem('wed_user_name') || "神秘嘉賓";
-                await push(ref(db, 'wedding_prizes'), {
-                    name: userName,
-                    prize: item.title,
-                    rarity: rarity,
-                    timestamp: serverTimestamp()
-                });
-            } catch(e) { console.warn("紀錄上傳失敗", e); }
-
-            setTimeout(() => {
-                document.getElementById('overlay-rarity').innerText = `卡牌級別：【黃金 ${rarity} 特別卡】`;
-                document.getElementById('overlay-msg').innerText = `抽中相片：「${item.title}」\n您已符合二進上台領獎資格，請將此畫面出示給工作人員看喔！`;
-                document.getElementById('prize-overlay').style.display = 'flex';
-            }, 300);
-        }
-    };
-    window.closePrizeOverlay = function() { document.getElementById('prize-overlay').style.display = 'none'; };
-
-    // ================= 照片沖印與排程紀錄 =================
-    window.processPrintUpload = function() {
-        const f = document.getElementById('print-file').files[0];
-        if (f) {
-            const r = new FileReader();
-            document.getElementById('printText').style.display = "none";
-            const pv = document.getElementById('print-preview'); 
-            pv.style.display = "block";
-            r.onload = function(e) { pv.src = e.target.result; };
-            r.readAsDataURL(f);
-        }
-    };
-
-    window.submitToPrintQueue = async function() {
-        const f = document.getElementById('print-file').files[0];
-        if(!f) { alert("請先點選框框選擇照片。"); return; }
-        
-        const btn = document.getElementById('printSubmitBtn');
-        btn.innerText = "照片雲端傳送中... 🚀";
-        btn.disabled = true;
-
-        try {
-            const userName = localStorage.getItem('wed_user_name') || "神秘嘉賓";
-            await push(ref(db, 'wedding_prints'), {
-                name: userName,
-                status: "pending",
-                timestamp: serverTimestamp()
-            });
-
-            localStorage.setItem('wed_print_done', 'true');
-            window.lockPrintSystem();
-        } catch(e) {
-            alert("傳送失敗，請重新嘗試！");
-            btn.innerText = "確認相片無誤，雲端排程送印 🖨️";
-            btn.disabled = false;
-        }
-    };
-
-    window.lockPrintSystem = function() {
-        document.getElementById('printBadge').innerText = "今日免費沖印額度：0 / 1 張";
-        document.getElementById('printBadge').style.backgroundColor = "#d3d3d3";
-        document.getElementById('print-file').disabled = true;
-        document.getElementById('printLabel').style.pointerEvents = "none";
-        document.getElementById('printLabel').style.backgroundColor = "#f5f5f5";
-        document.getElementById('printText').innerText = "✨ 您已成功沖印一張珍貴照片 ✨";
-        document.getElementById('printText').style.display = "block";
-        document.getElementById('print-preview').style.display = "none";
-        const btn = document.getElementById('printSubmitBtn');
-        btn.disabled = true; btn.innerText = "免費沖印額度已用完 🔒";
-        document.getElementById('printSuccessMsg').style.display = "block";
-    };
-</script>
-
+<nav>
+  <button data-go="home" class="on"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="nav.home"></span></button><button data-go="game"><svg class="ic"><use href="#i-game"/></svg><span data-i18n="nav.game"></span></button><button data-go="draw"><svg class="ic"><use href="#i-draw"/></svg><span data-i18n="nav.draw"></span></button><button data-go="wish"><svg class="ic"><use href="#i-wish"/></svg><span data-i18n="nav.wish"></span></button><button data-go="fort"><svg class="ic"><use href="#i-fort"/></svg><span data-i18n="nav.fort"></span></button><button data-go="photo"><svg class="ic"><use href="#i-photo"/></svg><span data-i18n="nav.photo"></span></button>
+</nav>
+<div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

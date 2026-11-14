@@ -34,6 +34,12 @@
         if (unityInstance) unityInstance.SendMessage("WeddingGame", "WebStartBGM");
         else pendingBgm = "start";
       };
+      // Called by the wedding web page so the game uses the page's language (zh-Hant / en / ja).
+      var pendingLang = null;
+      window.callUnitySetLanguage = function (code) {
+        if (unityInstance) unityInstance.SendMessage("WeddingGame", "WebSetLanguage", code);
+        else pendingLang = code;
+      };
       window.callUnityStopBGM = function () {
         if (unityInstance) unityInstance.SendMessage("WeddingGame", "WebStopBGM");
         else pendingBgm = "stop";
@@ -41,9 +47,9 @@
 
       var buildUrl = "Build";
       var config = {
-        dataUrl: buildUrl + "/21e65d2094d52de9375a0cf59b54d5a5.data.unityweb",
-        frameworkUrl: buildUrl + "/1600947c86f4a05850270b4d440c90be.framework.js.unityweb",
-        codeUrl: buildUrl + "/e34849c923474f65eab14104005a4c17.wasm.unityweb",
+        dataUrl: buildUrl + "/a8eebeb09004d8fccc32f961c39165fc.data.unityweb",
+        frameworkUrl: buildUrl + "/78f6413b52bd1a681c3c7b9918b0a3fa.framework.js.unityweb",
+        codeUrl: buildUrl + "/b451cb1e61f2c5dab526851c9f450847.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         // File names are content hashes (a new build = new names), so cached copies never need re-checking:
         // repeat visits start straight from the browser's IndexedDB cache without touching the network.
@@ -70,6 +76,7 @@
           document.getElementById("loading").style.display = "none";
           if (pendingBgm === "start") window.callUnityStartBGM();
           if (pendingBgm === "stop") window.callUnityStopBGM();
+          if (pendingLang) window.callUnitySetLanguage(pendingLang);
         }).catch(function (message) {
           var e = document.getElementById("error"); e.style.display = "block"; e.textContent = message;
         });
