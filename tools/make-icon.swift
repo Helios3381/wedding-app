@@ -90,5 +90,4 @@ func render(_ size: Int, _ name: String) {
 }
 
 render(180, "apple-touch-icon.png")
-render(512, "icon-512.png")
 render(64, "favicon.png")

@@ -21,7 +21,7 @@ export const lang = detect();
 
 const lookup = (d, key) => key.split('.').reduce((o, k) => (o == null ? o : o[k]), d);
 
-/** 取出文言；字串中的 {name} 會換成 vars.name。陣列、函式等原樣回傳。 */
+/** 取出翻譯文字；字串中的 {name} 會換成 vars.name。陣列、函式等原樣回傳。 */
 export function t(key, vars) {
   let v = lookup(DICT[lang], key);
   if (v === undefined) v = lookup(zh, key);
@@ -30,7 +30,7 @@ export function t(key, vars) {
   return v;
 }
 
-/** 把 data-i18n／data-i18n-html／data-i18n-attr 的文言填進畫面 */
+/** 把 data-i18n／data-i18n-html／data-i18n-attr 的翻譯填進畫面 */
 export function applyI18n(root = document) {
   document.documentElement.lang = lang;
   document.title = t('meta.title');

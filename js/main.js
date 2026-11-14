@@ -67,7 +67,7 @@ document.addEventListener('click', e => {
   if (a && ACTIONS[a.dataset.action]) ACTIONS[a.dataset.action](e);
 });
 
-// --- 起動 ---
+// --- 啟動 ---
 applyI18n();
 renderFun();
 renderLangSwitch();

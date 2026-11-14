@@ -84,7 +84,7 @@ export function drawFort() {
   setTimeout(() => { S.fortI = i; save(); showFort(true); celebrate(40); }, 2650);
 }
 
-export function showFort(anim) {
+function showFort(anim) {
   const text = FORT()[S.fortI] || FORT()[0];
   const [a, b] = text.split('】'), o = $('fo');
   $('tw').hidden = true; $('fb').hidden = true; $('fbh').hidden = true; o.hidden = false;

@@ -11,7 +11,7 @@ const LOT_MAX = 3;                // 抽獎機會：每則留言算 1 次，最�
 const MQ_SPEED = 65;              // 跑馬燈速度：每秒移動像素，數字越小越慢
 const MAX_PICK = 2;               // 金句最多選 2 句
 
-// 祝福金句：分頁 [名稱, 副標, 金句…]（語言檔的 chips）
+// 目前的金句分頁與已選的金句（金句本身在語言檔的 chips：{ name, sub, items }）
 let CG = 0, SEL = [];
 let WS = rd(KEY.wishes, null) || t('wish.seeds');
 let dmOn = rd(KEY.danmaku, false);

@@ -16,7 +16,7 @@
 <script type="module" src="js/main.js"></script>
 </head>
 <body>
-<!-- 文言はすべて js/i18n/ の言語ファイルから入る（data-i18n＝文字、data-i18n-html＝HTML、data-i18n-attr＝属性） -->
+<!-- 畫面上的文字都由 js/i18n/ 的語言檔填入（data-i18n＝文字、data-i18n-html＝HTML、data-i18n-attr＝屬性） -->
 
 <!-- --- 入席報到 --- -->
 <div class="ov on" id="wel"><div class="vc"><div class="xi">囍</div><h2 data-i18n="wel.title"></h2><p class="mut" data-i18n-html="wel.desc"></p><input type="text" id="nm" maxlength="12" autocomplete="off" data-i18n-attr="placeholder:wel.placeholder"><button class="btn" data-action="enter" data-i18n="wel.button"></button></div></div>
@@ -26,7 +26,7 @@
 <div class="ov" id="ask" style="z-index:110"><div class="vc"><div class="xi">囍</div><p id="askm" style="font-weight:900;color:var(--wine);font-size:1.05rem"></p><button class="btn g" id="asky" data-i18n="ask.yes"></button><button class="btn" id="askn" style="background:#fff;color:var(--wine)" data-i18n="ask.no"></button></div></div>
 <!-- --- 幸福慢遞：投遞動畫 --- -->
 <div class="ov" id="post"><div class="vc"><h2 data-i18n="post.title"></h2><div class="pst"><div class="pw"><div class="pol"><img id="polimg" alt=""><div class="ph" id="polph">💌</div><small>2027.01.01 ♥</small></div></div><div class="mbx"><div class="cp"></div><div class="bd2"></div><div class="sl"></div><div class="pl" data-i18n-html="post.plate"></div><div class="bs"></div></div>
-  <svg class="pm" viewBox="0 0 200 100" aria-hidden="true"><g fill="none" stroke="#b0173b" stroke-width="3"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="36" stroke-width="1.5"/><path d="M100 32q12-10 24 0t24 0 24 0 24 0M100 50q12-10 24 0t24 0 24 0 24 0M100 68q12-10 24 0t24 0 24 0 24 0"/></g><g fill="#b0173b" text-anchor="middle" font-weight="900" font-family="serif"><text x="50" y="40" font-size="12" data-i18n="post.mark"></text><text x="50" y="57" font-size="10.5">2027.01.01</text><text x="50" y="73" font-size="10">♥ 囍 ♥</text></g></svg></div>
+  <svg class="pm" viewBox="0 0 200 100" aria-hidden="true"><use href="#i-postmark"/><g fill="#b0173b" text-anchor="middle" font-weight="900" font-family="serif"><text x="50" y="40" font-size="12" data-i18n="post.mark"></text><text x="50" y="57" font-size="10.5">2027.01.01</text><text x="50" y="73" font-size="10">♥ 囍 ♥</text></g></svg></div>
   <div class="pdone"><p style="font-weight:900;color:var(--wine);margin:0" data-i18n="post.done"></p><button class="btn g" data-action="closePost" data-i18n="post.ok"></button></div></div></div>
 <!-- --- 回憶圖鑑：放大檢視 --- -->
 <div class="ov" id="vw" data-action="closeViewer"><div style="position:relative;width:230px;height:320px"><div class="face front" id="vf" style="transform:none;backface-visibility:visible"></div></div></div>

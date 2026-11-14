@@ -101,7 +101,7 @@ export default {
     sentFull: 'Your wish is on its way 💌 Your entries are full — but more wishes make the couple even happier!',
     seeds: ['Wishing 阿銘 and 阿萱 a lifetime of love! —— Best man 阿豪', 'Happy wedding, happy forever! —— Tiffany, friend from Hong Kong', 'Hand in hand, growing old together! —— 大雄 from Kinmen']
   },
-  // 台語・粵語的金句是方言本身的趣味，保留原文
+  // 台語、粵語的金句是方言本身的趣味，保留原文
   chips: [
     { name: 'Classic', items: ['Congratulations on your wedding!', 'Wishing you a lifetime of love and happiness!', 'May your love grow stronger every year!', 'Happily ever after!', 'A perfect match made in heaven!', 'Cheers to love, laughter and forever!'] },
     { name: 'Playful', items: ['The bride is absolutely stunning!', 'The groom is way too handsome today!', "The groom's game is so much fun~", '阿銘, you lucky guy — treat 阿萱 well!', "From Hong Kong all the way to Kinmen — that's true love!", 'Great drinks, amazing food~'] },
