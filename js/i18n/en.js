@@ -40,7 +40,8 @@ export default {
   },
   lb: {
     title: 'Love Adventure Leaderboard', desc: "Top 3, get your best smile ready — you'll be called on stage at the second entrance! ✨",
-    medals: ['1st', '2nd', '3rd'], points: '{score} pts', award: "Groom's Prize"
+    medals: ['1st', '2nd', '3rd'], points: '{score} pts', award: "Groom's Prize",
+    loading: 'Loading the leaderboard…', empty: 'No scores yet — be the first challenger! 🏆'
   },
   gifts: {
     title: 'Gifts from the Couple!',

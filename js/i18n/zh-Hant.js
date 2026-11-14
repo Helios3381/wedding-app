@@ -41,7 +41,8 @@ export default {
   },
   lb: {
     title: '愛情冒險王 風雲榜', desc: '前 3 名請準備好最帥最美的笑容，二次進場要上台領獎囉唷！✨',
-    medals: ['冠軍', '亞軍', '季軍'], points: '{score} 分', award: '新郎獎'
+    medals: ['冠軍', '亞軍', '季軍'], points: '{score} 分', award: '新郎獎',
+    loading: '排行榜讀取中…', empty: '目前尚無紀錄，快來當第一個挑戰者吧！🏆'
   },
   gifts: {
     title: '幸福新人禮 大放送！',

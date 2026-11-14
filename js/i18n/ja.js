@@ -40,7 +40,8 @@ export default {
   },
   lb: {
     title: '恋の冒険王 ランキング', desc: '上位3名は最高の笑顔の準備を。お色直しの再入場で表彰します！✨',
-    medals: ['優勝', '準優勝', '3位'], points: '{score} 点', award: '新郎賞'
+    medals: ['優勝', '準優勝', '3位'], points: '{score} 点', award: '新郎賞',
+    loading: 'ランキングを読み込み中…', empty: 'まだ記録がありません。最初の挑戦者になろう！🏆'
   },
   gifts: {
     title: '新郎新婦からのプレゼント！',
