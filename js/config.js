@@ -19,13 +19,14 @@ export const CFG = {
 export const COPYRIGHT = '© 2026 Helios Studios All rights reserved.';
 
 // localStorage 鍵名（沿用原本的鍵名，已存的資料可以繼續使用）
-export const KEY = { state: 'wd_s', mute: 'wd_m', wishes: 'wd_w', danmaku: 'wd_dm2', lang: 'wd_lang' };
+export const KEY = { state: 'wd_s', mute: 'wd_m', danmaku: 'wd_dm2', lang: 'wd_lang' };
 
-// Firebase Realtime Database：風雲榜（wedding_scores）全場共用，沿用舊網站的專案與資料。
+// Firebase Realtime Database：風雲榜（wedding_scores）與祝福留言（wedding_messages）全場共用，沿用舊網站的專案與資料。
 // Web 用的設定是公開值，資料的讀寫權限由 Firebase 主控台的安全規則控管
 export const FIREBASE = {
   SDK: 'https://www.gstatic.com/firebasejs/10.7.1/',
   SCORES: 'wedding_scores',
+  MESSAGES: 'wedding_messages',
   config: {
     apiKey: 'AIzaSyAWY1ZrLeEwZ1397Lxz2LbxMS-bo4s0OqA',
     authDomain: 'weddinggame-93bad.firebaseapp.com',

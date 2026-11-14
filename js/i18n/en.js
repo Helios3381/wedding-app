@@ -99,6 +99,7 @@ export default {
     empty: 'Write or pick a wish first 😊',
     sent: 'Your wish is on its way 💌 Draw entries {lot}/{max}',
     sentFull: 'Your wish is on its way 💌 Your entries are full — but more wishes make the couple even happier!',
+    failed: "Your wish didn't reach the other guests — please check your connection and send it again",
     seeds: ['Wishing 阿銘 and 阿萱 a lifetime of love! —— Best man 阿豪', 'Happy wedding, happy forever! —— Tiffany, friend from Hong Kong', 'Hand in hand, growing old together! —— 大雄 from Kinmen']
   },
   // 台語、粵語的金句是方言本身的趣味，保留原文

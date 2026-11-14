@@ -1,7 +1,8 @@
 // --- 愛的留言板：金句一鍵填入 + 跑馬燈 + 全場彈幕 ---
-import { KEY } from '../config.js';
+import { KEY, FIREBASE } from '../config.js';
 import { $, Q, esc, pick1, rd, wr } from '../core/util.js';
 import { S, save, sync, app } from '../core/store.js';
+import { firebase } from '../core/firebase.js';
 import { t } from '../core/i18n.js';
 import { beep } from '../core/sound.js';
 import { toast, celebrate } from '../core/ui.js';
@@ -10,12 +11,18 @@ import { stamp } from './home.js';
 const LOT_MAX = 3;                // 抽獎機會：每則留言算 1 次，最多 3 次
 const MQ_SPEED = 65;              // 跑馬燈速度：每秒移動像素，數字越小越慢
 const MAX_PICK = 2;               // 金句最多選 2 句
+const SHOW = 40;                  // 跑馬燈與彈幕輪播使用最新的幾則留言
+const NEW_GAP = 1200;             // 同時收到好幾則新留言時，彈幕間隔（毫秒）
 
 // 目前的金句分頁與已選的金句（金句本身在語言檔的 chips：{ name, sub, items }）
 let CG = 0, SEL = [];
-let WS = rd(KEY.wishes, null) || t('wish.seeds');
+// 全場的留言（新的在前）。Firebase 讀到之前、或還沒有任何留言時，先顯示語言檔的範例
+let WS = t('wish.seeds');
 let dmOn = rd(KEY.danmaku, false);
 let dmLane = 0;
+// 已經顯示過的留言（Firebase 的 key）。第一次讀取之後才出現的 key 就是別人剛送出的留言
+const seen = new Set();
+let synced = false;
 
 // 祝福內容與署名分色：「內容 —— 名字」
 const wHTML = w => {
@@ -78,14 +85,44 @@ export function renderLot() {
   e.textContent = `${n}/${LOT_MAX}`; e.classList.toggle('full', n >= LOT_MAX);
 }
 
+// --- 全場共用的留言：Firebase Realtime Database 的 wedding_messages（沿用舊網站的資料與格式 { name, message, timestamp }）---
+function listenWishes() {
+  firebase().then(({ db, ref, query, limitToLast, onValue }) => onValue(query(ref(db, FIREBASE.MESSAGES), limitToLast(SHOW)), snap => {
+    const list = [];
+    snap.forEach(c => {
+      const v = c.val() || {};
+      if (v.message) list.push({ key: c.key, text: `${v.message} —— ${v.name || t('home.guest')}`, ts: typeof v.timestamp === 'number' ? v.timestamp : 0 });
+    });
+    list.sort((a, b) => b.ts - a.ts);
+    // 別人剛送出的留言：每支手機都飛一次 NEW 彈幕（自己的留言在送出時已經飛過）
+    if (synced) list.filter(m => !seen.has(m.key)).reverse().forEach((m, i) => setTimeout(() => danmaku(m.text, true), i * NEW_GAP));
+    list.forEach(m => seen.add(m.key));
+    synced = true;
+    if (list.length) { WS = list.map(m => m.text); renderWish(); }
+  }, e => console.warn('[wishes]', e))).catch(e => console.warn('[wishes]', e));
+}
+
+async function postWish(name, message) {
+  try {
+    const { db, ref, push, set, serverTimestamp } = await firebase();
+    const r = push(ref(db, FIREBASE.MESSAGES));
+    seen.add(r.key);   // 先登記 key，Firebase 回傳這則留言時不會再飛一次
+    await set(r, { name, message, timestamp: serverTimestamp() });
+  } catch (e) {
+    console.error('留言送出失敗：', e);
+    toast(t('wish.failed'));
+  }
+}
+
 export function sendWish() {
   const m = $('wt').value.trim();
   if (!m) { toast(t('wish.empty')); return; }
   S.myW.push(m); save(); renderLot();
   const lot = Math.min(LOT_MAX, S.myW.length);
-  const w = `${m} —— ${S.name || t('home.guest')}`;
-  WS.unshift(w); WS = WS.slice(0, 40); wr(KEY.wishes, WS);
+  const name = S.name || t('home.guest'), w = `${m} —— ${name}`;
+  WS.unshift(w); WS = WS.slice(0, SHOW);
   renderWish(); danmaku(w, true); sync('wish', { text: m });
+  postWish(name, m);
   $('wt').value = ''; SEL = []; renderChips();
   stamp('wish'); celebrate(50);
   setTimeout(() => toast(S.myW.length <= LOT_MAX ? t('wish.sent', { lot, max: LOT_MAX }) : t('wish.sentFull')), S.stamps.wish && S.myW.length > 1 ? 0 : 2700);
@@ -100,4 +137,5 @@ export function initWish() {
     if (chip) pickChip(t('chips')[CG].items[+chip.dataset.chip]);
   });
   setInterval(() => { if (dmOn) danmaku(pick1(WS)); }, 4500);
+  listenWishes();
 }
