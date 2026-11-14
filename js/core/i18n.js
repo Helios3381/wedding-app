@@ -1,5 +1,5 @@
 // --- 多語系：繁體中文（預設）／English／日本語 ---
-// 語言由網址決定：?lang=en、?lang=ja（沒有指定時用上次選的語言；日文手機自動用日文）
+// 語言由網址決定：?lang=en、?lang=ja（沒有指定時用上次選的語言，都沒有就是繁體中文）
 import zh from '../i18n/zh-Hant.js';
 import en from '../i18n/en.js';
 import ja from '../i18n/ja.js';
@@ -14,7 +14,7 @@ const norm = v => !v ? null : v.startsWith('zh') ? 'zh-Hant' : v.startsWith('en'
 function detect() {
   const fromUrl = norm(new URLSearchParams(location.search).get('lang'));
   if (fromUrl) { wr(KEY.lang, fromUrl); return fromUrl; }
-  return norm(rd(KEY.lang, null)) || (norm(navigator.language) === 'ja' ? 'ja' : 'zh-Hant');
+  return norm(rd(KEY.lang, null)) || 'zh-Hant';
 }
 
 export const lang = detect();
