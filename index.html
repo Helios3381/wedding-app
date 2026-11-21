@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8f1738">
+<title>凱銘 ＆ 詠萱｜囍歡你！幸福遊樂園</title>
+<link rel="apple-touch-icon" href="assets/generated/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="assets/generated/icons/favicon.png">
+<meta name="apple-mobile-web-app-title" content="阿銘＆阿萱">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&family=Iansui&family=LXGW+WenKai+TC&text=%E5%9B%8D%E6%AD%A1%E4%BD%A0%EF%BC%81%E5%B9%B8%E7%A6%8F%E9%81%8A%E6%A8%82%E5%9C%92&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+<div class="ov" id="wel"><div class="vc"><div class="xi">囍</div><h2 data-i18n="wel.title"></h2><p class="mut" data-i18n-html="wel.desc"></p><input type="text" id="nm" maxlength="12" autocomplete="off" data-i18n-attr="placeholder:wel.placeholder"><button class="btn" data-action="enter" data-i18n="wel.button"></button></div></div>
+<div class="ov" id="vo"><div class="vc"><div class="xi">賀</div><h2 id="vt"></h2><p id="vm"></p><div class="code" id="vcode"></div><p class="mut" id="vnote" data-i18n="voucher.note"></p><button class="btn g" data-action="closeVoucher" data-i18n="voucher.ok"></button></div></div>
+<div class="ov" id="ask" style="z-index:110"><div class="vc"><div class="xi">囍</div><p id="askm" style="font-weight:900;color:var(--wine);font-size:1.05rem"></p><button class="btn g" id="asky" data-i18n="ask.yes"></button><button class="btn" id="askn" style="background:#fff;color:var(--wine)" data-i18n="ask.no"></button></div></div>
+<div class="ov" id="post"><div class="vc"><h2 data-i18n="post.title"></h2><div class="pst"><div class="pw"><div class="pol"><img id="polimg" alt=""><div class="ph" id="polph">💌</div><small>2027.01.01 ♥</small></div></div><div class="mbx"><div class="cp"></div><div class="bd2"></div><div class="sl"></div><div class="pl" data-i18n-html="post.plate"></div><div class="bs"></div></div>
+  <svg class="pm" viewBox="0 0 200 100" aria-hidden="true"><use href="#i-postmark"/><g fill="#b0173b" text-anchor="middle" font-weight="900" font-family="serif"><text x="50" y="40" font-size="12" data-i18n="post.mark"></text><text x="50" y="57" font-size="10.5">2027.01.01</text><text x="50" y="73" font-size="10">♥ 囍 ♥</text></g></svg></div>
+  <div class="pdone"><p style="font-weight:900;color:var(--wine);margin:0" data-i18n="post.done"></p><button class="btn g" data-action="closePost" data-i18n="post.ok"></button></div></div></div>
+<div class="ov" id="vw" data-action="closeViewer"><div style="position:relative;width:230px;height:320px"><div class="face front" id="vf" style="transform:none;backface-visibility:visible"></div></div></div>
+
+<div class="app">
+<header>
+  <div class="lang" id="lang"></div>
+  <button id="mt" data-action="toggleMute" data-i18n-attr="aria-label:header.sound"></button>
+  <i class="twk" style="left:22%;top:22%;font-size:.7rem;animation-delay:0s">✦</i><i class="twk" style="left:74%;top:16%;font-size:.9rem;animation-delay:0.9s">✦</i><i class="twk" style="left:17%;top:48%;font-size:.55rem;animation-delay:1.7s">✦</i><i class="twk" style="left:80%;top:44%;font-size:.6rem;animation-delay:0.5s">✦</i>
+  <div class="hx"><i class="ray"></i><div class="sl"><b>囍</b></div></div>
+  <h1>凱銘<em>＆</em>詠萱</h1>
+  <div class="sub"><span>2027 · 01 · 01</span><div class="fun" id="fun"></div></div>
+  <svg class="arc" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0Q200 58 400 0V30H0z" fill="#fffaf0"/></svg>
+</header>
+<div class="mq"><div class="mqv"><span id="mq"></span></div></div>
+
+<main>
+<section class="v on" id="v-home">
+  <div class="pn"><button class="dmt off cor" data-action="toggleDm" data-i18n-attr="aria-label:dm.toggle"><svg aria-hidden="true"><use href="#i-dm"/></svg><span data-i18n="dm.label"></span><i class="sw"></i></button><h2 id="hi"></h2><p class="mut" id="sp"></p><div class="stamps" id="stamps"></div><div class="tasks" id="tasks"></div></div>
+  <div class="pn"><h2><span data-i18n="lb.title"></span><span class="top">TOP 6</span></h2><p class="mut" data-i18n="lb.desc"></p><div class="pod" id="pod"></div><table><tbody id="lb"></tbody></table></div>
+  <div class="pn"><h2><svg class="ic"><use href="#i-gift"/></svg><span data-i18n="gifts.title"></span></h2><p class="mut" data-i18n-html="gifts.desc"></p>
+    <div class="gifts">
+      <div class="gift"><span class="gn">壹</span><div><b data-i18n-html="gifts.g1"></b><small data-i18n="gifts.g1d"></small></div></div>
+      <div class="gift"><span class="gn">貳</span><div><b data-i18n-html="gifts.g2"></b><small data-i18n="gifts.g2d"></small></div></div>
+      <div class="gift"><span class="gn">參</span><div><b data-i18n-html="gifts.g3"></b><small data-i18n="gifts.g3d"></small></div></div>
+    </div>
+    <div class="egg"><svg aria-hidden="true"><use href="#i-egg"/></svg><div><small data-i18n="gifts.eggTag"></small><b data-i18n="gifts.egg"></b><span data-i18n-html="gifts.eggDesc"></span></div></div>
+    <div class="alarm"><svg aria-hidden="true"><use href="#i-alarm"/></svg><div><small data-i18n="gifts.alarmTag"></small><b data-i18n="gifts.alarm"></b></div></div>
+  </div>
+</section>
+
+<section class="v" id="v-game"><div class="pn">
+  <h2><svg class="ic"><use href="#i-game"/></svg><span data-i18n="game.title"></span></h2>
+  <p class="mut" data-i18n="game.desc"></p>
+  <div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gem"/></svg><div><b data-i18n="game.lot"></b></div></div>
+  <p class="mut" data-i18n-html="game.controls"></p>
+  <div class="ugame" id="ugame">
+    <div class="ugo" id="ugo" data-action="startGame"><div id="ugo-text" data-i18n-html="game.tapToPlay"></div></div>
+    <iframe id="unity" data-src="JumpmanGL/index.html" allowfullscreen data-i18n-attr="title:game.title"></iframe>
+    <button class="ugx" id="ugx" data-action="exitGame" hidden data-i18n="game.back"></button>
+  </div>
+  <p class="mut" style="text-align:center" data-i18n="game.landscape"></p>
+  <div id="res" hidden><h2 id="rt"></h2><p id="rm"></p><button class="btn g" data-go="home" data-i18n="game.toRanking"></button></div>
+</div></section>
+
+<section class="v" id="v-draw"><div class="pn">
+  <h2><svg class="ic"><use href="#i-draw"/></svg><span data-i18n="draw.title"></span></h2><p class="mut" data-i18n="draw.desc"></p><div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gem"/></svg><div><b data-i18n="draw.lot"></b><small data-i18n="draw.lotDesc"></small></div><span class="lotn" id="dl" data-i18n-attr="data-l:lot.left">5/5</span></div>
+  <div class="scene" id="sc"><div class="card" id="cd"><div class="face back">囍</div><div class="face front" id="fr"></div></div></div>
+  <p id="cap" style="text-align:center;min-height:52px;font-weight:700;color:var(--wine)"></p>
+  <button class="btn" id="db" data-action="drawCard"></button>
+  <p class="mut" style="text-align:center;margin-top:14px"><span data-i18n="draw.album"></span> <b id="ac"></b>　<small data-i18n="draw.albumHint"></small></p><div class="alb" id="alb"></div>
+  <p class="mut" id="stock" style="text-align:center;font-weight:700;color:var(--wine);margin-top:12px"></p>
+</div></section>
+
+<section class="v" id="v-wish"><div class="pn">
+  <h2><svg class="ic"><use href="#i-wish"/></svg><span data-i18n="wish.title"></span></h2><p class="mut" data-i18n="wish.desc"></p><div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-gift"/></svg><div><b data-i18n="wish.lot"></b><small data-i18n="wish.lotDesc"></small></div><span class="lotn" id="lotn" data-i18n-attr="data-l:lot.got">0/1</span></div>
+  <div class="dmrow"><span data-i18n="wish.dmAsk"></span><button class="dmt off" data-action="toggleDm" data-i18n-attr="aria-label:dm.toggle"><svg aria-hidden="true"><use href="#i-dm"/></svg><span data-i18n="dm.label"></span><i class="sw"></i></button></div>
+  <div class="chips" id="chips"></div>
+  <label for="wt" data-i18n="wish.label"></label><textarea id="wt" rows="3" maxlength="80" data-i18n-attr="placeholder:wish.placeholder"></textarea>
+  <button class="btn" data-action="sendWish" data-i18n="wish.send"></button>
+  <ul class="wl" id="wl"></ul>
+</div></section>
+
+<section class="v" id="v-fort"><div class="pn">
+  <h2><svg class="ic"><use href="#i-fort"/></svg><span data-i18n="fort.title"></span></h2><p class="mut" data-i18n="fort.desc"></p>
+  <button class="env" id="env" data-action="openEnv" data-i18n-attr="aria-label:fort.envLabel"><div class="e3" id="e3"><div class="e-back"></div><div class="e-paper"><img class="ep-ill" src="assets/generated/images/letter-illustration.webp" alt=""></div><div class="e-front"></div><div class="e-flap"></div><div class="seal">囍</div></div><span class="mut" data-i18n="fort.envHint"></span></button>
+  <div id="ltr" hidden><div class="letter" id="lt" data-action="readLetterAll">
+    <div class="lhd"><span>囍</span><span data-i18n="letter.to" style="color:inherit;font-size:inherit"></span><span>囍</span></div>
+    <p class="lp sal" data-i18n="letter.salute"></p>
+    <p class="lp" data-i18n-html="letter.p1"></p>
+    <p class="lp" data-i18n-html="letter.p2"></p>
+    <img class="lp lill" src="assets/generated/images/letter-illustration.webp" data-i18n-attr="alt:letter.illustration">
+    <p class="lp" data-i18n-html="letter.p3"></p>
+    <p class="lp ask" data-i18n="letter.ask"></p>
+    <div class="lp tip"><svg class="ti"><use href="#i-photo"/></svg><div><small data-i18n="letter.ask1Tag"></small><b data-i18n="letter.ask1"></b></div></div>
+    <div class="lp tip"><svg class="ti"><use href="#i-feast"/></svg><div><small data-i18n="letter.ask2Tag"></small><b data-i18n="letter.ask2"></b></div></div>
+    <p class="lp end" data-i18n-html="letter.end"></p>
+    <div class="lp sig"><div><b data-i18n="letter.sign"></b> <span data-i18n="letter.signSuffix"></span><small>2027.01.01</small></div><span class="lseal">囍</span></div>
+    <p class="skip" id="skip" data-i18n="letter.skip"></p>
+  </div>
+  <div class="tw" id="tw" hidden><div class="tube" id="tube"><div class="sticks"><i style="--x:-34px;--r:-17deg;--h:132px"></i><i style="--x:-22px;--r:-10deg;--h:148px"></i><i style="--x:-10px;--r:-4deg;--h:140px"></i><i class="hero" id="hero"></i><i style="--x:10px;--r:5deg;--h:144px"></i><i style="--x:22px;--r:11deg;--h:136px"></i><i style="--x:34px;--r:17deg;--h:128px"></i></div><div class="tbody"><div class="tl"><small>2027</small><b data-i18n="fort.tube"></b></div></div></div><div class="fly" id="fly"><span></span></div></div>
+  <button class="btn" id="fb" data-action="drawFort" hidden data-i18n="fort.draw"></button>
+  <p class="mut" id="fbh" style="text-align:center;margin:6px 0 0" hidden data-i18n="fort.drawHint"></p>
+  <div class="fort" id="fo" hidden></div>
+  <button class="btn g" id="fk" data-action="takeFort" hidden data-i18n="fort.take"></button>
+  <div id="fdone" hidden><p class="mut" style="text-align:center" data-i18n="fort.done"></p><button class="btn" data-go="draw" data-i18n="fort.toDraw"></button></div></div>
+</div></section>
+
+<section class="v" id="v-photo"><div class="pn">
+  <h2><svg class="ic"><use href="#i-photo"/></svg><span data-i18n="photo.title"></span></h2><p class="mut" data-i18n="photo.desc"></p>
+  <div class="lot"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-polaroid"/></svg><div><b data-i18n="photo.lot"></b><small data-i18n="photo.lotDesc"></small></div><span class="lotn" id="pq" data-i18n-attr="data-l:lot.left">1/1</span></div>
+  <label class="drop" id="dz"><span id="dt" data-i18n="photo.pick"></span><input type="file" id="pf" accept="image/*"><img id="pv" hidden data-i18n-attr="alt:photo.preview"></label>
+  <div class="form"><input type="text" id="rn" maxlength="20" autocomplete="name" data-i18n-attr="placeholder:photo.name"><input type="text" inputmode="tel" id="rp" maxlength="15" autocomplete="tel" data-i18n-attr="placeholder:photo.phone"><input type="text" inputmode="numeric" id="rz" maxlength="8" autocomplete="postal-code" data-i18n-attr="placeholder:photo.zip"><input type="text" id="ra" maxlength="80" autocomplete="street-address" data-i18n-attr="placeholder:photo.addr"></div>
+  <button class="btn g" id="pb" data-action="sendPhoto" data-i18n="photo.send"></button>
+  <p class="mut" id="pn"></p>
+</div></section>
+</main>
+<footer id="copyright"></footer>
+</div>
+
+<nav>
+  <button data-go="home" class="on"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="nav.home"></span></button><button data-go="game"><svg class="ic"><use href="#i-game"/></svg><span data-i18n="nav.game"></span></button><button data-go="draw"><svg class="ic"><use href="#i-draw"/></svg><span data-i18n="nav.draw"></span></button><button data-go="wish"><svg class="ic"><use href="#i-wish"/></svg><span data-i18n="nav.wish"></span></button><button data-go="fort"><svg class="ic"><use href="#i-fort"/></svg><span data-i18n="nav.fort"></span></button><button data-go="photo"><svg class="ic"><use href="#i-photo"/></svg><span data-i18n="nav.photo"></span></button>
+</nav>
+<div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
